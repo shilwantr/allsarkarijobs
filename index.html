@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AllSarkariJobs — Layout 2 · Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1a2e;--navy:#16213e;--slate:#4a5568;--muted:#718096;--border:#e8ecf1;
+  --saffron:#c2956a;--saffron-dark:#a67c52;--red:#c53030;--green:#2f855a;
+  --bg:#f7f8fa;--surface:#fff;--radius:12px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;font-family:inherit}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.hide-scroll::-webkit-scrollbar{display:none}.hide-scroll{scrollbar-width:none}
+
+/* ── Header ───────────────────────────────── */
+.top-strip{background:var(--ink);color:rgba(255,255,255,.55);font-size:12px;padding:8px 0;display:none}
+.top-strip .container{display:flex;justify-content:space-between;align-items:center}
+.top-strip strong{color:var(--saffron)}
+.top-strip a{color:rgba(255,255,255,.7);transition:color .15s}.top-strip a:hover{color:#fff}
+
+.header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);transition:box-shadow .25s}
+.header.shadow{box-shadow:0 2px 20px rgba(0,0,0,.05)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.logo span{color:var(--saffron)}
+.desktop-nav{display:none;gap:32px;list-style:none}
+.desktop-nav a{font-size:14px;font-weight:600;color:var(--muted);transition:color .15s;position:relative}
+.desktop-nav a:hover{color:var(--ink)}
+.desktop-nav a.active{color:var(--ink)}
+.desktop-nav a.active::after{content:'';position:absolute;left:0;right:0;bottom:-18px;height:2px;background:var(--saffron);border-radius:2px}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;transition:all .2s}
+.btn-outline{border:1.5px solid var(--border);color:var(--ink);background:transparent}.btn-outline:hover{border-color:var(--ink)}
+.btn-orange{background:var(--saffron);color:#fff}.btn-orange:hover{background:var(--saffron-dark);transform:translateY(-1px);box-shadow:0 4px 14px rgba(162,124,82,.25)}
+.hamburger{display:flex;font-size:22px;color:var(--ink);background:none}
+
+/* ── Featured Hero ────────────────────────── */
+.featured{padding:40px 0 0}
+.featured-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.feat-main{background:linear-gradient(145deg,var(--ink) 0%,#2a3650 100%);border-radius:16px;padding:36px 32px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:280px}
+.feat-main::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(194,149,106,.12)}
+.feat-main .label{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:var(--saffron);background:rgba(194,149,106,.15);padding:4px 10px;border-radius:6px;margin-bottom:12px;width:fit-content;text-transform:uppercase;letter-spacing:.04em}
+.feat-main h2{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,32px);font-weight:800;line-height:1.2;margin-bottom:8px}
+.feat-main p{color:rgba(255,255,255,.5);font-size:14px;margin-bottom:16px;max-width:480px}
+.feat-main .meta{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.55)}
+.feat-main .meta span i{margin-right:4px;font-size:11px;color:var(--saffron)}
+
+.feat-side{display:grid;gap:12px}
+.feat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px;transition:all .2s;cursor:pointer}
+.feat-card:hover{border-color:var(--saffron);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.feat-card .icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.feat-card h4{font-size:14px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3px}
+.feat-card .sub{font-size:12px;color:var(--muted)}
+.feat-card .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:6px;display:inline-block}
+.badge-urgent{background:#f9eded;color:var(--red)}.badge-new{background:#edf5f0;color:var(--green)}.badge-live{background:#f5f0e5;color:var(--saffron-dark)}
+
+/* ── Search Bar ───────────────────────────── */
+.search-section{padding:32px 0}
+.search-bar{display:flex;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s}
+.search-bar:focus-within{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(194,149,106,.1)}
+.search-input{flex:1;padding:14px 20px;font-size:15px;border:none;outline:none;font-family:inherit;background:transparent}
+.search-filters{display:none;gap:0;border-left:1px solid var(--border)}
+.search-filters select{padding:14px 16px;border:none;outline:none;font-family:inherit;font-size:13px;color:var(--slate);background:transparent;cursor:pointer;border-left:1px solid var(--border);min-width:130px}
+.search-go{background:var(--saffron);color:#fff;padding:14px 28px;font-size:15px;font-weight:700;border:none;transition:background .2s}
+.search-go:hover{background:var(--saffron-dark)}
+
+/* ── WhatsApp Banner ──────────────────────── */
+.wa-banner{background:linear-gradient(135deg,#1a3a2a 0%,#244836 100%);border-radius:14px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#fff;margin:8px 0 40px}
+.wa-banner i.wa-icon{font-size:36px;color:#6bc98f;margin-right:16px}
+.wa-text h3{font-size:18px;font-weight:700;margin-bottom:2px}
+.wa-text p{font-size:13px;color:rgba(255,255,255,.55)}
+.wa-banner button{background:rgba(255,255,255,.92);color:#1a3a2a;padding:12px 24px;border-radius:10px;font-weight:700;font-size:14px;transition:all .2s;white-space:nowrap}
+.wa-banner button:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.15)}
+
+/* ── 3-Column Updates ─────────────────────── */
+.updates-grid{display:grid;grid-template-columns:1fr;gap:24px;padding-bottom:48px}
+.updates-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.col-header{padding:16px 20px;font-size:15px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+.col-header.results{background:linear-gradient(135deg,#5b4a8a,#4a3d75)}.col-header.admit{background:linear-gradient(135deg,#3d6098,#345280)}.col-header.latest{background:linear-gradient(135deg,var(--saffron),var(--saffron-dark))}
+.col-list{list-style:none;max-height:420px;overflow-y:auto}
+.col-list li{border-bottom:1px solid var(--border)}
+.col-list li:last-child{border-bottom:none}
+.col-list a{display:block;padding:14px 20px;font-size:13px;font-weight:500;color:var(--slate);transition:all .15s;line-height:1.4}
+.col-list a:hover{background:#fafafa;color:var(--ink);padding-left:24px}
+.col-list a small{display:block;font-size:11px;color:var(--muted);margin-top:3px;font-weight:400}
+.col-list a .tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px}
+.tag-new{background:#e8f5e9;color:#2e7d42}.tag-hot{background:#fce8e8;color:var(--red)}
+.col-footer{text-align:center;padding:12px;border-top:1px solid var(--border)}
+.col-footer a{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.col-footer a:hover{color:var(--ink)}
+
+/* ── Categories ───────────────────────────── */
+.cats-section{padding:0 0 48px}
+.cats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px;transition:all .2s;cursor:pointer}
+.cat-card:hover{border-color:var(--saffron);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.cat-card .ci{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cat-card h4{font-size:14px;font-weight:700;color:var(--ink)}
+.cat-card p{font-size:12px;color:var(--muted)}
+
+/* ── Exam Timeline ────────────────────────── */
+.timeline-section{padding:0 0 48px}
+.timeline{display:flex;flex-direction:column;gap:0;position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--border)}
+.tl-item{position:relative;padding:12px 0 12px 20px}
+.tl-item::before{content:'';position:absolute;left:-25px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2.5px solid var(--saffron);z-index:1}
+.tl-item h5{font-size:14px;font-weight:700;color:var(--ink)}
+.tl-item p{font-size:12px;color:var(--muted)}
+.tl-item .tl-date{font-size:11px;font-weight:700;color:var(--saffron-dark);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+
+/* ── Section Titles ───────────────────────── */
+.sec-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.sec-title h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--ink)}
+.sec-title a{font-size:13px;font-weight:600;color:var(--saffron-dark)}
+
+/* ── Footer ───────────────────────────────── */
+.footer{background:var(--ink);color:rgba(255,255,255,.4);padding:48px 0 24px}
+.footer-inner{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:24px}
+.footer h4{color:#fff;font-size:13px;font-weight:700;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer ul a{font-size:13px;transition:color .15s}.footer ul a:hover{color:var(--saffron)}
+.footer-bar{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;text-align:center;font-size:12px}
+
+/* ── Mobile Nav ───────────────────────────── */
+.mob-nav{position:fixed;inset:0;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s}
+.mob-nav.open{opacity:1;pointer-events:auto}
+.mob-nav .overlay{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.mob-nav .panel{position:absolute;top:0;right:0;bottom:0;width:300px;background:#fff;padding:24px;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;gap:4px}
+.mob-nav.open .panel{transform:translateX(0)}
+.mob-nav .panel a{padding:14px 0;font-weight:600;color:var(--ink);border-bottom:1px solid var(--border);font-size:15px}
+.mob-nav .panel .x{align-self:flex-end;font-size:24px;color:var(--muted);background:none;margin-bottom:8px}
+
+/* ── Responsive ───────────────────────────── */
+@media(min-width:768px){
+  .top-strip{display:block}
+  .desktop-nav{display:flex}
+  .hamburger{display:none}
+  .search-filters{display:flex}
+  .featured-grid{grid-template-columns:1.4fr 1fr}
+  .updates-grid{grid-template-columns:repeat(3,1fr)}
+  .cats-grid{grid-template-columns:repeat(3,1fr)}
+  .footer-inner{grid-template-columns:2fr 1fr 1fr 1fr}
+}
+@media(min-width:1024px){
+  .cats-grid{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- Top Strip -->
+<div class="top-strip">
+  <div class="container">
+    <span>🔥 <strong>Trending:</strong> SSC CGL 2026 Notification Released — 17,727 Posts</span>
+    <div style="display:flex;gap:16px;align-items:center">
+      <a href="#"><i class="fa-brands fa-whatsapp" style="color:#6bc98f;margin-right:4px"></i> WhatsApp Alerts</a>
+      <a href="#">English / हिन्दी</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="header" id="hdr">
+  <div class="container header-inner">
+    <a href="#" class="logo">AllSarkari<span>Jobs</span></a>
+    <ul class="desktop-nav">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">Jobs</a></li>
+      <li><a href="#">Results</a></li>
+      <li><a href="#">Admit Cards</a></li>
+      <li><a href="#">Syllabus</a></li>
+      <li><a href="#">Categories</a></li>
+    </ul>
+    <div class="hdr-right">
+      <button class="btn btn-outline" style="display:none" id="loginD">Log In</button>
+      <button class="btn btn-orange">Get Started</button>
+      <button class="hamburger" id="hamBtn"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mob-nav" id="mobNav">
+  <div class="overlay" id="mobOv"></div>
+  <div class="panel">
+    <button class="x" id="mobX"><i class="fa-solid fa-xmark"></i></button>
+    <a href="#">Home</a><a href="#">Jobs</a><a href="#">Results</a><a href="#">Admit Cards</a><a href="#">Syllabus</a><a href="#">Categories</a>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+      <button class="btn btn-outline" style="justify-content:center">Log In</button>
+      <button class="btn btn-orange" style="justify-content:center">Get Started</button>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Hero -->
+<section class="featured">
+  <div class="container">
+    <div class="featured-grid">
+      <div class="feat-main">
+        <div class="label"><i class="fa-solid fa-fire"></i> Featured Vacancy</div>
+        <h2>SSC CGL 2026 — 17,727 Posts Open for Graduate Aspirants</h2>
+        <p>Staff Selection Commission has released the combined graduate level exam notification. Apply before deadline.</p>
+        <div class="meta">
+          <span><i class="fa-solid fa-graduation-cap"></i> Graduate</span>
+          <span><i class="fa-solid fa-users"></i> 17,727 Posts</span>
+          <span><i class="fa-solid fa-calendar"></i> Last Date: 24 Oct 2026</span>
+          <span><i class="fa-solid fa-map-marker-alt"></i> All India</span>
+        </div>
+      </div>
+      <div class="feat-side">
+        <div class="feat-card">
+          <div class="icon" style="background:#f5f0e0;color:#9a8050"><i class="fa-solid fa-train"></i></div>
+          <div>
+            <h4>RRB Technician 2026</h4>
+            <div class="sub">Railway · 9,144 Posts</div>
+            <span class="badge badge-urgent">⏰ 2 Days Left</span>
+          </div>
+        </div>
+        <div class="feat-card">
+          <div class="icon" style="background:#edeaf5;color:#6b5e8a"><i class="fa-solid fa-shield-halved"></i></div>
+          <div>
+            <h4>UP Police Constable 60,244 Posts</h4>
+            <div class="sub">State Govt · Uttar Pradesh</div>
+            <span class="badge badge-new">✨ New</span>
+          </div>
+        </div>
+        <div class="feat-card">
+          <div class="icon" style="background:#e8edf5;color:#506a8a"><i class="fa-solid fa-piggy-bank"></i></div>
+          <div>
+            <h4>IBPS PO/MT XIV — 4,455 Posts</h4>
+            <div class="sub">Banking · All India</div>
+            <span class="badge badge-live">🟢 Live</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Search -->
+<section class="search-section">
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="Search exams, departments, or keywords…">
+      <div class="search-filters">
+        <select><option>All States</option><option>Uttar Pradesh</option><option>Bihar</option><option>Delhi</option><option>Rajasthan</option></select>
+        <select><option>Qualification</option><option>10th Pass</option><option>12th Pass</option><option>Graduate</option><option>Post Graduate</option></select>
+      </div>
+      <button class="search-go"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp Banner -->
+<div class="container">
+  <div class="wa-banner">
+    <div style="display:flex;align-items:center">
+      <i class="fa-brands fa-whatsapp wa-icon"></i>
+      <div class="wa-text">
+        <h3>Never Miss a Deadline</h3>
+        <p>Set your job preferences & get instant WhatsApp notifications for matching vacancies.</p>
+      </div>
+    </div>
+    <button><i class="fa-brands fa-whatsapp" style="margin-right:6px"></i> Enable Alerts</button>
+  </div>
+</div>
+
+<!-- 3-Column Updates (Reimagined SarkariResult) -->
+<div class="container">
+  <div class="sec-title"><h2>Latest Updates</h2></div>
+  <div class="updates-grid">
+
+    <!-- Results -->
+    <div class="updates-col">
+      <div class="col-header results"><i class="fa-solid fa-trophy"></i> Results</div>
+      <ul class="col-list">
+        <li><a href="#">Haryana HTET Revised Result 2026 <span class="tag tag-new">NEW</span><small>Declared Today</small></a></li>
+        <li><a href="#">AIIMS CRE 5th Group B,C Result 2026<small>Declared Today</small></a></li>
+        <li><a href="#">UPSSSC Forensic Science Lab Answer Key<small>Yesterday</small></a></li>
+        <li><a href="#">RSSB Clerk Jr-II Result 2026<small>2 days ago</small></a></li>
+        <li><a href="#">Bihar DELED 2026 Course Result<small>3 days ago</small></a></li>
+        <li><a href="#">NTA CSIR UGC NET June E-Certificate<small>4 days ago</small></a></li>
+        <li><a href="#">RBI Bank Assistant Mains Result<small>5 days ago</small></a></li>
+        <li><a href="#">SSC Stenographer Answer Key 2026<small>1 week ago</small></a></li>
+      </ul>
+      <div class="col-footer"><a href="#">View All Results →</a></div>
+    </div>
+
+    <!-- Admit Cards -->
+    <div class="updates-col">
+      <div class="col-header admit"><i class="fa-solid fa-id-card"></i> Admit Cards</div>
+      <ul class="col-list">
+        <li><a href="#">SSC CGL Tier-I Admit Card 2026 <span class="tag tag-hot">HOT</span><small>Download Now</small></a></li>
+        <li><a href="#">Railway RRB Technician City Slip<small>Updated Yesterday</small></a></li>
+        <li><a href="#">UP Police Constable PET Admit Card<small>Available</small></a></li>
+        <li><a href="#">Delhi High Court JJA Mains<small>Available</small></a></li>
+        <li><a href="#">IBPS Clerk (CSA) 16th PET Admit Card<small>Available</small></a></li>
+        <li><a href="#">RSSB Exam Calendar 2026-27<small>Published</small></a></li>
+        <li><a href="#">Bank Of Baroda LBO Admit Card<small>Out</small></a></li>
+        <li><a href="#">UPSSSC PET Revised Exam Date<small>Updated</small></a></li>
+      </ul>
+      <div class="col-footer"><a href="#">View All Admit Cards →</a></div>
+    </div>
+
+    <!-- Latest Jobs -->
+    <div class="updates-col">
+      <div class="col-header latest"><i class="fa-solid fa-briefcase"></i> Latest Jobs</div>
+      <ul class="col-list">
+        <li><a href="#">Indian Army TGC 145 Online Form 2026 <span class="tag tag-new">NEW</span><small>Apply Now · All India</small></a></li>
+        <li><a href="#">BPSC School Teacher TRE 4.0 <span class="tag tag-hot">33K+</span><small>33,320 Posts · Bihar</small></a></li>
+        <li><a href="#">SSC CPO SI CAPF Online Form<small>Last Date Today!</small></a></li>
+        <li><a href="#">MP High Court Assistant Grade III<small>Central · 850 Posts</small></a></li>
+        <li><a href="#">UPESSC PRT Assistant Teacher<small>12,405 Posts · UP</small></a></li>
+        <li><a href="#">RRB NTPC 10+2 UG Online Form<small>All India · 3,477 Posts</small></a></li>
+        <li><a href="#">HPSC Food Safety Officer<small>Haryana · Group B</small></a></li>
+        <li><a href="#">Canara Bank Apprentice Form<small>3,500 Posts · Banking</small></a></li>
+      </ul>
+      <div class="col-footer"><a href="#">View All Jobs →</a></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Categories -->
+<div class="container cats-section">
+  <div class="sec-title"><h2>Popular Categories</h2><a href="#">All Categories →</a></div>
+  <div class="cats-grid">
+    <div class="cat-card"><div class="ci" style="background:#f5eee8;color:#8b6f55"><i class="fa-solid fa-landmark"></i></div><div><h4>UPSC / PSC</h4><p>42 active vacancies</p></div></div>
+    <div class="cat-card"><div class="ci" style="background:#f5f0e0;color:#9a8050"><i class="fa-solid fa-train"></i></div><div><h4>Railway</h4><p>18 active vacancies</p></div></div>
+    <div class="cat-card"><div class="ci" style="background:#e8edf5;color:#506a8a"><i class="fa-solid fa-building-columns"></i></div><div><h4>Banking</h4><p>35 active vacancies</p></div></div>
+    <div class="cat-card"><div class="ci" style="background:#edeaf5;color:#6b5e8a"><i class="fa-solid fa-shield-halved"></i></div><div><h4>Police & Defence</h4><p>29 active vacancies</p></div></div>
+    <div class="cat-card"><div class="ci" style="background:#e5f0e8;color:#4a7a5a"><i class="fa-solid fa-chalkboard-user"></i></div><div><h4>Teaching</h4><p>54 active vacancies</p></div></div>
+    <div class="cat-card"><div class="ci" style="background:#f2e8ed;color:#8a5070"><i class="fa-solid fa-stethoscope"></i></div><div><h4>Medical</h4><p>21 active vacancies</p></div></div>
+    <div class="cat-card"><div class="ci" style="background:#e8eaf2;color:#505a7a"><i class="fa-solid fa-microchip"></i></div><div><h4>IT / Engineering</h4><p>16 active vacancies</p></div></div>
+    <div class="cat-card"><div class="ci" style="background:#e8f0e8;color:#4a7050"><i class="fa-solid fa-gavel"></i></div><div><h4>Judiciary</h4><p>12 active vacancies</p></div></div>
+  </div>
+</div>
+
+<!-- Exam Timeline -->
+<div class="container timeline-section">
+  <div class="sec-title"><h2>Upcoming Exam Calendar</h2><a href="#">Full Calendar →</a></div>
+  <div class="timeline">
+    <div class="tl-item"><span class="tl-date">12 Oct 2026</span><h5>SSC CHSL Tier-I CBT</h5><p>Computer Based Test · Multiple shifts across India</p></div>
+    <div class="tl-item"><span class="tl-date">05 Nov 2026</span><h5>NEET UG 2026</h5><p>Pen & Paper · Single day exam</p></div>
+    <div class="tl-item"><span class="tl-date">15 Dec 2026</span><h5>UPSC CSE Prelims 2026</h5><p>Written exam · All India centres</p></div>
+    <div class="tl-item"><span class="tl-date">22 Dec 2026</span><h5>IBPS PO Mains</h5><p>Online CBT · Banking recruitment</p></div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="logo" style="margin-bottom:12px;color:#fff">AllSarkari<span>Jobs</span></div>
+        <p style="font-size:13px;max-width:320px;line-height:1.6">India's most trusted portal for government job notifications, exam results, admit cards & recruitment updates.</p>
+      </div>
+      <div><h4>Quick Links</h4><ul><li><a href="#">Latest Jobs</a></li><li><a href="#">Results</a></li><li><a href="#">Admit Cards</a></li><li><a href="#">Answer Keys</a></li></ul></div>
+      <div><h4>Categories</h4><ul><li><a href="#">Railway</a></li><li><a href="#">Banking</a></li><li><a href="#">SSC</a></li><li><a href="#">Defence</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Disclaimer</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bar">© 2026 AllSarkariJobs · Not affiliated with any government body · Made with ❤️ in India</div>
+  </div>
+</footer>
+
+<script>
+const h=document.getElementById('hdr');
+window.addEventListener('scroll',()=>h.classList.toggle('shadow',scrollY>10),{passive:true});
+const mn=document.getElementById('mobNav');
+document.getElementById('hamBtn').onclick=()=>mn.classList.add('open');
+document.getElementById('mobX').onclick=()=>mn.classList.remove('open');
+document.getElementById('mobOv').onclick=()=>mn.classList.remove('open');
+if(innerWidth>=768)document.getElementById('loginD').style.display='';
+</script>
+</body>
+</html>
+
