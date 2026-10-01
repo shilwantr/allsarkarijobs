@@ -71,4 +71,4 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: https://www.allsarkarijobs.com/sitemap.xml
+Sitemap: https://www.allsarkarijobs.online/sitemap.xml
