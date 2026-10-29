@@ -26,6 +26,9 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 from backend.config import DB_PATH
+from backend.database import init_db
+from backend.migrate_db import migrate
+from backend.migrate_filters import migrate_filters
 from backend.publish_crawled import export_portal_data_js
 
 
@@ -682,6 +685,9 @@ def resolve_category_urls(cat: str, title: str, org: str, parsed: dict) -> dict:
 
 def re_resolve_existing_db():
     """Re-evaluates all rows in updates using their stored meta_json without re-fetching 148 pages."""
+    init_db()
+    migrate()
+    migrate_filters()
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
@@ -761,6 +767,9 @@ def scrape_all_from_sarkariresult():
                 print(f"  Parsed {idx}/{len(unique_urls)} post pages...")
 
     # 3. Update SQLite database schema to store rich scraped metadata
+    init_db()
+    migrate()
+    migrate_filters()
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
