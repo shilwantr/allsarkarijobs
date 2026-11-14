@@ -7,6 +7,7 @@ import json
 import re
 import os
 import sqlite3
+from datetime import datetime
 from backend.config import DB_PATH
 from backend.fix_action_urls import fix_action_urls
 
@@ -1211,7 +1212,7 @@ def export_portal_data_js():
         "approved_staging": len(approved_staging),
         "total_recruitments": len(recruitments_list),
         "active_watchdogs": active_watchdogs_count,
-        "last_crawl": "2026-10-13 08:50 IST (SarkariResult.com Live Sync)",
+        "last_crawl": datetime.now().strftime("%Y-%m-%d %H:%M IST (SarkariResult.com Live Sync)"),
     }
 
     payload = {
